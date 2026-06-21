@@ -53,6 +53,7 @@ function App() {
             <a name="Timer" style={{"scroll-margin-top": "100px",}} ></a>
             <h2>Timer</h2>
               <Timer/>
+
         </div>
     </>
   )

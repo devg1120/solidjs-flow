@@ -49,8 +49,7 @@
     z-index: -3;
     position: absolute;
     top: 0px;
-    /*left: calc(12px * -1.5);*/
-    left: calc(12px * -1.0);
+    left: calc(12px * -1.5);
     display: flex;
     flex-direction: column;
     margin: 12px 0px;
@@ -62,28 +61,17 @@
     background-color: #e38b29;
     width: 12px;
     height: 12px;
-    /*border-radius: 100%;*/
-    margin: 12px 0px;   /*POINT VERTICAL DENSITY */
+    border-radius: 100%;
+    margin: 12px 0px;
     box-shadow: 1px 1px 11px -6px rgba(0, 0, 0, 0.75);
 }
 
-.nodeInput_circle { /*GUSA*/
-    pointer-events: all;
-    cursor: initial;
-    background-color: #e38b29;
-    width: 12px;
-    height: 12px;
-    border-radius: 100%;
-    margin: 12px 0px;   /*POINT VERTICAL DENSITY */
-    box-shadow: 1px 1px 11px -6px rgba(0, 0, 0, 0.75);
-}
 .nodeOutputs {
     pointer-events: none;
     z-index: -3;
     position: absolute;
     top: 0px;
-    /*right: calc(12px * -1.5);*/
-    right: calc(12px * -1.0);
+    right: calc(12px * -1.5);
     display: flex;
     flex-direction: column;
     margin: 12px 0px;
@@ -95,18 +83,8 @@
     background-color: #e38b29;
     width: 12px;
     height: 12px;
-    /*border-radius: 100%;*/
-    margin: 12px 0px;   /*POINT VERTICAL DENSITY */
-    box-shadow: 1px 1px 11px -6px rgba(0, 0, 0, 0.75);
-}
-.nodeOutput_circle { /*GUSA*/
-    pointer-events: all;
-    cursor: crosshair;
-    background-color: #e38b29;
-    width: 12px;
-    height: 12px;
     border-radius: 100%;
-    margin: 12px 0px;   /*POINT VERTICAL DENSITY */
+    margin: 12px 0px;
     box-shadow: 1px 1px 11px -6px rgba(0, 0, 0, 0.75);
 }
 

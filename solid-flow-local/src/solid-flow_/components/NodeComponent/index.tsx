@@ -1,6 +1,4 @@
 import { type Accessor, type Component, For, onCleanup, onMount } from "solid-js";
-import { createSignal } from "solid-js";
-
 import styles from "./styles.module.css";
 
 declare module "solid-js" {
@@ -34,12 +32,6 @@ const NodeComponent: Component<Props> = (props: Props) => {
     let inputRefs = [...Array(props.inputs)];
     let outputRefs = [...Array(props.outputs)];
 
-    const point_size = 12;
-    const [output_margin, setOutput_margin] = createSignal(point_size);
-    const [input_margin,  setInput_margin]  = createSignal(point_size);
-
-
-
     onMount(() => {
         let inputs: { offset: { x: number; y: number } }[] = [];
         let outputs: { offset: { x: number; y: number } }[] = [];
@@ -50,49 +42,7 @@ const NodeComponent: Component<Props> = (props: Props) => {
         for (let i = 0; i < outputRefs.length; i++) {
             outputs.push({ offset: { x: outputRefs[i].getBoundingClientRect().x, y: outputRefs[i].getBoundingClientRect().y } });
         }
-
         props.onNodeMount(inputs, outputs);
-
-        //setOutput_margin( props.ref.offsetHeight /(outputs.length+ 1) -(point_size*1.5));
-        setInput_margin(  props.ref.offsetHeight /(inputs.length+ 1)  -(point_size*1.5));
-
-	if (outputs.length  == 2) {
-          setOutput_margin( props.ref.offsetHeight /(outputs.length+ 1) -(point_size*1.7));
-        } else {
-          setOutput_margin( props.ref.offsetHeight /(outputs.length+ 1) -(point_size*1.5));
-        }
-
-	if (inputs.length  == 2) {
-          setInput_margin( props.ref.offsetHeight /(inputs.length+ 1) -(point_size*1.7));
-        } else {
-          setInput_margin( props.ref.offsetHeight /(inputs.length+ 1) -(point_size*1.5));
-        }
-	/*
-        if (outputs.length == 1) {
-          setOutput_margin( props.ref.offsetHeight /(outputs.length+ 1) -(point_size*1.5));
-        } else if (outputs.length == 2) {
-          setOutput_margin( props.ref.offsetHeight /(outputs.length+ 1) -(point_size*1.7));
-        } else if (outputs.length == 3) {
-          setOutput_margin( props.ref.offsetHeight /(outputs.length+ 1) -(point_size*1.6));
-        } else if (outputs.length == 4) {
-          setOutput_margin( props.ref.offsetHeight /(outputs.length+ 1) -(point_size*1.3));
-	} else {
-          setOutput_margin( props.ref.offsetHeight /(outputs.length+ 1) -(point_size*1.3));
-	}
-
-        if (inputs.length == 1) {
-          setInput_margin( props.ref.offsetHeight /(inputs.length+ 1) -(point_size*1.5));
-        } else if (inputs.length == 2) {
-          setInput_margin( props.ref.offsetHeight /(inputs.length+ 1) -(point_size*1.7));
-        } else if (inputs.length == 3) {
-          setInput_margin( props.ref.offsetHeight /(inputs.length+ 1) -(point_size*1.6));
-        } else if (inputs.length == 4) {
-          setInput_margin( props.ref.offsetHeight /(inputs.length+ 1) -(point_size*1.3));
-	} else {
-          setInput_margin( props.ref.offsetHeight /(inputs.length+ 1) -(point_size*1.3));
-	}
-        */
-        //console.log("ref", props.ref.offsetHeight, inputs.length, outputs.length, output_margin())
     });
 
     function clickOutside(el: any, accessor: any) {
@@ -149,7 +99,6 @@ const NodeComponent: Component<Props> = (props: Props) => {
                                     event.stopPropagation();
                                     if (props.onMouseUpInput) props.onMouseUpInput(index());
                                 }}
-				style={{margin: input_margin() +"px 0px"}} /*GUSA*/
                             ></div>
                         )}
                     </For>
@@ -168,7 +117,6 @@ const NodeComponent: Component<Props> = (props: Props) => {
                                     event.stopPropagation();
                                     if (props.onMouseDownOutput) props.onMouseDownOutput(index());
                                 }}
-				style={{margin: output_margin() +"px 0px"}} /*GUSA*/
                             ></div>
                         )}
                     </For>

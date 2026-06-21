@@ -19,8 +19,8 @@ const initialNodes = [
             label: "Node with label",
             content: <p>This is a node with a label</p>,
         },
-        inputs: 1,
-        outputs: 1,
+        inputs: 2,
+        outputs: 4,
     },
     {
         id: "node-3",
@@ -28,7 +28,7 @@ const initialNodes = [
         data: {
             content: <p style={{ width: "200px" }}>This is a node with two inputs and two outputs</p>,
         },
-        inputs: 2,
+        inputs: 3,
         outputs: 2,
     },
 
@@ -39,7 +39,7 @@ const initialNodes = [
             label: "Only inputs",
             content: <p>This is a node with only inputs</p>,
         },
-        inputs: 2,
+        inputs: 3,
         outputs: 0,
     },
 ];
