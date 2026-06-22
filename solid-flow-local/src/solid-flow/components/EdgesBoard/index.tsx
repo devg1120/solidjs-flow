@@ -48,6 +48,7 @@ const EdgesBoard: Component<Props> = (props: Props) => {
                         y0: props.newEdge.position.y0,
                         x1: props.newEdge.position.x1,
                         y1: props.newEdge.position.y1,
+                        yc: props.newEdge.position.yc, /*GUSA*/
                     }}
                     onClickDelete={() => {}}
                     onClickEdge={() => {}}
@@ -66,6 +67,7 @@ const EdgesBoard: Component<Props> = (props: Props) => {
                                     y0: props.edgesPositions[edgeId]?.y0 || 0,
                                     x1: props.edgesPositions[edgeId]?.x1 || 0,
                                     y1: props.edgesPositions[edgeId]?.y1 || 0,
+                                    yc: props.edgesPositions[edgeId]?.yc || 0, /*GUSA*/
                                 }}
                                 onClickDelete={() => {
                                     props.onDeleteEdge(edgeId);

@@ -16,6 +16,8 @@ const EdgeComponent: Component<Props> = (props: Props) => {
         y: props.position.y0 + (props.position.y1 - props.position.y0) / 2,
     });
 
+    console.log("yc:", props.position.yc);
+
     createEffect(() => {
         const middleX = props.position.x0 + (props.position.x1 - props.position.x0) / 2;
         const middleY = props.position.y0 + (props.position.y1 - props.position.y0) / 2;

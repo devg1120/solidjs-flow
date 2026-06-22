@@ -181,25 +181,6 @@ const FlowChart: Component<Props> = (props: Props) => {
         }
     });
 
-    function  getNode(nodeId: string){
-	   for (const node of props.nodes) {
-               if ( node.id == nodeId ) {
-                   return node;
-	       }
-	   }
-	   return null
-
-    }
-    function  getNodeBitweenYC(edgeId: string){
-           const info = edgesNodes()[edgeId]
-           console.log("edgeinfo:", info.inNodeId," => ", info.outNodeId);
-	   const in_node = getNode(info.inNodeId);
-	   const out_node = getNode(info.outNodeId);
-	   console.dir(in_node);
-	   console.dir(out_node);
-           return 14
-    }
-
     // NODE HANDLERS
     function handleOnNodeMount(values: {
         nodeIndex: number;
@@ -230,12 +211,10 @@ const FlowChart: Component<Props> = (props: Props) => {
             });
             return next;
         });
-/*
-        getNodeBitween((edgeId: string) =>{
+        getNodeBitween(edgeId: string) {
              const info = edgesNodes()[edgeId]
              return 10
-	})
-*/
+	}
         setEdgesPositions((prev: EdgesPositions) => {
             const next = { ...prev };
             nodesData[values.nodeIndex].edgesIn.map((edgeId: string) => {
@@ -244,7 +223,7 @@ const FlowChart: Component<Props> = (props: Props) => {
                     y0: prev[edgeId]?.y0 || 0,
                     x1: nodesPositions()[values.nodeIndex].x + values.inputs[edgesNodes()[edgeId].inputIndex].offset.x,
                     y1: nodesPositions()[values.nodeIndex].y + values.inputs[edgesNodes()[edgeId].inputIndex].offset.y,
-		    yc: getNodeBitweenYC(edgeId), /*GUSA*/
+		    yc: getNodeBitween(edgeId),
                 };
             });
             nodesData[values.nodeIndex].edgesOut.map((edgeId: string) => {
@@ -253,7 +232,7 @@ const FlowChart: Component<Props> = (props: Props) => {
                     y0: nodesPositions()[values.nodeIndex].y + values.outputs[edgesNodes()[edgeId].outputIndex].offset.y,
                     x1: prev[edgeId]?.x1 || 0,
                     y1: prev[edgeId]?.y1 || 0,
-		    yc: getNodeBitweenYC(edgeId), /*GUSA*/
+		    yc: getNodeBitween(edgeId),
                 };
             });
             return next;

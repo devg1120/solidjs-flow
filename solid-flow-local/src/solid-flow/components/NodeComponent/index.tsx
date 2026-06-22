@@ -30,6 +30,7 @@ interface Props {
     onClickOutside: () => void;
     onClickDelete?: () => void;
     point_margin_size?: () => void;
+    id: string;
 }
 
 const NodeComponent: Component<Props> = (props: Props) => {
@@ -90,6 +91,7 @@ const NodeComponent: Component<Props> = (props: Props) => {
 
     return (
         <div
+            id={props.id}
             ref={props.ref}
             class={props.selected ? styles.nodeSelected : styles.node}
             style={{ transform: `translate(${props.x}px, ${props.y}px)` }}
@@ -117,7 +119,7 @@ const NodeComponent: Component<Props> = (props: Props) => {
             {props.label && <span class={styles.nodeLabel}>{props.label}</span>}
             <div class={styles.nodeContent}>{props.content}</div>
             {props.inputs > 0 && (
-                <div class={styles.nodeInputs}>
+                <div  class={styles.nodeInputs}>
                     <For each={[...Array(props.inputs).keys()]}>
                         {(item: number, index: Accessor<number>) => (
                             <div

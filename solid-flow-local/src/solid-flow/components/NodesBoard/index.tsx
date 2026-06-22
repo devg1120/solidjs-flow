@@ -68,6 +68,7 @@ const NodesBoard: Component<Props> = (props: Props) => {
                         y={props.nodesPositions[index()].y}
                         selected={selected() === index()}
                         actions={node.actions}
+                        id={node.id}    //GUSA
                         label={node.data.label}
                         content={node.data.content}
                         inputs={node.inputs}
