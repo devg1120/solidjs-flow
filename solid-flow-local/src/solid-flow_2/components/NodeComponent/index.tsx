@@ -1,6 +1,5 @@
 import { type Accessor, type Component, For, onCleanup, onMount } from "solid-js";
 import { createSignal } from "solid-js";
-import { mergeProps } from "solid-js";
 
 import styles from "./styles.module.css";
 
@@ -29,21 +28,16 @@ interface Props {
     onMouseUpInput?: (inputIndex: number) => void;
     onClickOutside: () => void;
     onClickDelete?: () => void;
-    point_margin_size?: () => void;
+    sg_margin_size?: () => void;
 }
 
 const NodeComponent: Component<Props> = (props: Props) => {
-
     let inputRefs = [...Array(props.inputs)];
     let outputRefs = [...Array(props.outputs)];
 
-    const [point_margin_size_, setPointMargin_size_] = createSignal(12);  //point_margin_size DEFAULT
-
-    const merged = mergeProps({ point_margin_size: point_margin_size_}, props);
-    let point_margin_size = merged.point_margin_size;
-
-    const [output_margin, setOutput_margin] = createSignal(point_margin_size());
-    const [input_margin,  setInput_margin]  = createSignal(point_margin_size());
+    const [margin_size, setMargin_size] = createSignal(5);
+    const [output_margin, setOutput_margin] = createSignal(margin_size());
+    const [input_margin,  setInput_margin]  = createSignal(margin_size());
 
 
 

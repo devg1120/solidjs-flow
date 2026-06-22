@@ -1,5 +1,4 @@
 import { type Component, createEffect, createSignal } from "solid-js";
-import { mergeProps } from "solid-js";
 import { createStore, produce } from "solid-js/store";
 import EdgesBoard from "./EdgesBoard";
 import NodesBoard from "./NodesBoard";
@@ -153,17 +152,6 @@ const FlowChart: Component<Props> = (props: Props) => {
 
     const [clickedDelta, setClickedDelta] = createSignal<Position>({ x: 0, y: 0 });
     const [newEdge, setNewEdge] = createSignal<{ position: Vector; sourceNode: number; sourceOutput: number } | null>(null);
-
-
-
-
-
-
-    const [point_margin_size_, setPointMargin_size_] = createSignal(12);  //point_margin_size DEFAULT
-
-    const merged = mergeProps({ point_margin_size: point_margin_size_}, props);
-    let point_margin_size = merged.point_margin_size;
-
 
     createEffect(() => {
         const nextNodesLength = props.nodes.length;
@@ -421,7 +409,6 @@ const FlowChart: Component<Props> = (props: Props) => {
                         onInputMouseUp={handleOnInputMouseUp}
                         onMouseUp={handleOnMouseUp}
                         onMouseMove={handleOnMouseMove}
-			point_margin_size={merged.point_margin_size}
                     />
                     <EdgesBoard
                         newEdge={newEdge()}

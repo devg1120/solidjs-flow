@@ -84,6 +84,8 @@ const Simple: Component = () => {
         console.log("edges", edges());
     });
 
+    const [point_margin_size, setPointMargin_size] = createSignal(5);  //point_margin_size DEFAULT
+
     return (
         <div class={styles.main}>
             <SolidFlow
@@ -95,6 +97,7 @@ const Simple: Component = () => {
                 onEdgesChange={(newEdges: Edge[]) => {
                     setEdges(newEdges);
                 }}
+		point_margin_size={point_margin_size}   /*GUSA*/
             />
         </div>
     );

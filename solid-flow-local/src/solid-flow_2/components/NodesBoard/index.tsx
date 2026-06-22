@@ -25,14 +25,11 @@ interface Props {
     onInputMouseUp: (nodeIndex: number, inputIndex: number) => void;
     onMouseUp: () => void;
     onMouseMove: (x: number, y: number) => void;
-    point_margin_size: () => void;
 }
 
 const NodesBoard: Component<Props> = (props: Props) => {
     const [grabbing, setGrabbing] = createSignal<number | null>(null);
     const [selected, setSelected] = createSignal<number | null>(null);
-
-    //const [point_margin_size, setPointMargin_size] = createSignal(6);
 
     let scene: any;
 
@@ -103,8 +100,6 @@ const NodesBoard: Component<Props> = (props: Props) => {
                             setSelected(null);
                             props.onNodeDelete(node.id);
                         }}
-
-			point_margin_size={props.point_margin_size}
                     />
                 )}
             </For>
