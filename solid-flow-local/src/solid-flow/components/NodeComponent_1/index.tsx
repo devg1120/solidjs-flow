@@ -28,13 +28,13 @@ interface Props {
     onMouseUpInput?: (inputIndex: number) => void;
     onClickOutside: () => void;
     onClickDelete?: () => void;
-    sg_margin_size?: () => void;
 }
 
 const NodeComponent: Component<Props> = (props: Props) => {
     let inputRefs = [...Array(props.inputs)];
     let outputRefs = [...Array(props.outputs)];
 
+    //const margin_size = 3;
     const [margin_size, setMargin_size] = createSignal(5);
     const [output_margin, setOutput_margin] = createSignal(margin_size());
     const [input_margin,  setInput_margin]  = createSignal(margin_size());
