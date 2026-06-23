@@ -62,8 +62,11 @@ const EdgeComponent: Component<Props> = (props: Props) => {
         H ${props.position.x1}
      `
    
-    //let path_type = "path_bezierCurve" ;
-    let path_type = "path_rightAngle" ;
+    //let path_type = "path_bezierCurve1" ;
+    //let path_type = "path_bezierCurve2" ;
+    //let path_type = "path_rightAngle1" ;
+    let path_type = "path_rightAngle2" ;
+
     let point_size = 12;
 
 /*
@@ -100,7 +103,7 @@ const EdgeComponent: Component<Props> = (props: Props) => {
 //	                   |
 //	                   +--[node2]
 	      
-                if (path_type == "path_rightAngle")  {
+                if (path_type == "path_rightAngle1")  {
                  return `
                     M ${props.position.x0} ${props.position.y0} 
                     H ${props.position.x0 + (props.position.x1 - props.position.x0)/2}
@@ -130,7 +133,7 @@ const EdgeComponent: Component<Props> = (props: Props) => {
 //	          |
 //	          +--[node2]
 	     
-               if (path_type == "path_rightAngle")  {
+               if (path_type == "path_rightAngle1")  {
 
                 return `
                    M ${props.position.x0} ${props.position.y0} 
@@ -152,6 +155,26 @@ const EdgeComponent: Component<Props> = (props: Props) => {
                    V ${props.position.y1}
                    H ${props.position.x1}
                  `
+               } else if (path_type == "path_bezierCurve1") {
+                return `
+                   M ${props.position.x0} ${props.position.y0} 
+                   C ${props.position.x0 + calculateOffset(Math.abs(props.position.x1 - props.position.x0))} ${props.position.y0}, 
+                     ${props.position.x1 - calculateOffset(Math.abs(props.position.x1 - props.position.x0))} ${props.position.y1}, 
+                     ${props.position.x1} ${props.position.y1}
+
+                 `
+               } else if (path_type == "path_bezierCurve2") {
+                return `
+                   M ${props.position.x0} ${props.position.y0} 
+                   C ${props.position.x0 + calculateOffset(Math.abs(props.position.x1 - props.position.x0))} ${props.position.y0}, 
+                     ${props.position.x0 + calculateOffset(Math.abs(props.position.x1 - props.position.x0))} ${props.position.yc}, 
+                     ${props.position.x0 + (props.position.x1 - props.position.x0)/2} ${props.position.yc} 
+                   M ${props.position.x1} ${props.position.y1}
+                   C ${props.position.x1 - calculateOffset(Math.abs(props.position.x1 - props.position.x0))} ${props.position.y1}, 
+                     ${props.position.x1 - calculateOffset(Math.abs(props.position.x1 - props.position.x0))} ${props.position.yc}, 
+                     ${props.position.x1 - (props.position.x1 - props.position.x0)/2} ${props.position.yc} 
+
+                 `
                } else {  // Default path_bezierCurve
                 return `
                    M ${props.position.x0} ${props.position.y0} 
@@ -160,6 +183,7 @@ const EdgeComponent: Component<Props> = (props: Props) => {
                      ${props.position.x1} ${props.position.y1}
                  `
                } 
+	       
 
         }
       } 
