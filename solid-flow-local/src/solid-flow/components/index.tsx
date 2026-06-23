@@ -195,8 +195,34 @@ const FlowChart: Component<Props> = (props: Props) => {
            console.log("edgeinfo:", info.inNodeId," => ", info.outNodeId);
 	   const in_node = getNode(info.inNodeId);
 	   const out_node = getNode(info.outNodeId);
-	   console.dir(in_node);
-	   console.dir(out_node);
+	   //console.dir(in_node);
+	   //console.dir(out_node);
+	   const in_el = document.querySelector("#" + info.inNodeId);
+	   const out_el = document.querySelector("#" + info.outNodeId);
+           //console.log("in_el", in_el);
+           //console.log("out_el", out_el);
+	   console.log(in_node.position)
+
+	   console.log(in_el.offsetHeight)  //offset paddingとborderを含む
+	   console.log(in_el.offsetWidth)
+	   //console.log(in_el.offsetTop)
+	   //console.log(in_el.offsetLeft)
+
+
+           const rect = in_el.getBoundingClientRect();
+           //console.log(rect.top,  rect.left,   rect.right,  rect.bottom);
+           console.log(rect.left + "   " + rect.top);
+           console.log(rect.x + "   " + rect.y);
+           //console.log(rect.width,   rect.height);
+
+
+// ページの左上を基準とした絶対座標
+/*
+const absoluteLeft = rect.left + window.scrollX
+const absoluteTop = rect.top + window.scrollY;
+
+console.log(`X: ${absoluteLeft}px, Y: ${absoluteTop}px`);
+*/
            return 14
     }
 

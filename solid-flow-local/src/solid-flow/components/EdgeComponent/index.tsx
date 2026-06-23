@@ -17,6 +17,7 @@ const EdgeComponent: Component<Props> = (props: Props) => {
     });
 
     console.log("yc:", props.position.yc);
+    console.log("YC:", props.edgeId, props.position.y0 + (props.position.y1 - props.position.y0)/2)
 
     createEffect(() => {
         const middleX = props.position.x0 + (props.position.x1 - props.position.x0) / 2;
@@ -114,6 +115,7 @@ const EdgeComponent: Component<Props> = (props: Props) => {
 	      *     +--[node2]
 	      */
                if (path_type == "path_rightAngle")  {
+
                 return `
                    M ${props.position.x0} ${props.position.y0} 
                    H ${props.position.x0 + 40}

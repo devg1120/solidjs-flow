@@ -62,6 +62,7 @@ const EdgesBoard: Component<Props> = (props: Props) => {
                             <EdgeComponent
                                 selected={edgeId === selected()}
                                 isNew={false}
+				edgeId={edgeId}
                                 position={{
                                     x0: props.edgesPositions[edgeId]?.x0 || 0,
                                     y0: props.edgesPositions[edgeId]?.y0 || 0,
