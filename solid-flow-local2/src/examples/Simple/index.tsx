@@ -1,0 +1,107 @@
+import { type Component, createEffect, createSignal } from "solid-js";
+import { type Node, type Edge, SolidFlow } from "../../solid-flow";
+import styles from "./styles.module.css";
+
+const initialNodes = [
+    {
+        id: "node-1",
+        position: { x: 50, y: 100 },
+        data: {
+            content: <p>This is a simple node</p>,
+        },
+        inputs: 0,
+        outputs: 1,
+    },
+    {
+        id: "node-2",
+        position: { x: 350, y: 100 },
+        data: {
+            label: "Node with label",
+            content: <p>This is a node with a label</p>,
+        },
+        inputs: 2,
+        outputs: 4,
+    },
+    {
+        id: "node-3",
+        position: { x: 350, y: 300 },
+        //position: { x: 150, y: 300 },
+        data: {
+            content: <p style={{ width: "200px" }}>This is a node with two inputs and two outputs</p>,
+        },
+        inputs: 3,
+        outputs: 2,
+    },
+
+    {
+        id: "node-4",
+        position: { x: 700, y: 100 },
+        data: {
+            label: "Only inputs",
+            content: <p>This is a node with only inputs</p>,
+        },
+        inputs: 3,
+        outputs: 0,
+    },
+];
+
+const initialEdges = [
+    {
+        id: "edge_0:0_1:0",
+        sourceNode: "node-1",
+        sourceOutput: 0,
+        targetNode: "node-2",
+        targetInput: 0,
+    },
+    {
+        id: "edge_0:0_2:0",
+        sourceNode: "node-1",
+        sourceOutput: 0,
+        targetNode: "node-3",
+        targetInput: 0,
+    },
+    {
+        id: "edge_1:0_3:0",
+        sourceNode: "node-2",
+        sourceOutput: 0,
+        targetNode: "node-4",
+        targetInput: 0,
+    },
+    {
+        id: "edge_2:0_3:1",
+        sourceNode: "node-3",
+        sourceOutput: 0,
+        targetNode: "node-4",
+        targetInput: 1,
+    },
+];
+
+const Simple: Component = () => {
+    const [nodes, setNodes] = createSignal<Node[]>(initialNodes);
+    const [edges, setEdges] = createSignal<Edge[]>(initialEdges);
+
+    createEffect(() => {
+        console.log("nodes", nodes());
+        console.log("edges", edges());
+    });
+
+    const [point_margin_size, setPointMargin_size] = createSignal(5);  //point_margin_size DEFAULT
+
+    return (
+        <div class={styles.main}>
+            <SolidFlow
+                nodes={nodes()}
+                edges={edges()}
+                onNodesChange={(newNodes: Node[]) => {
+                    setNodes(newNodes);
+                }}
+                onEdgesChange={(newEdges: Edge[]) => {
+                    setEdges(newEdges);
+                }}
+		point_margin_size={point_margin_size}   /*GUSA*/
+            />
+        </div>
+    );
+};
+
+export default Simple;

@@ -192,28 +192,25 @@ const FlowChart: Component<Props> = (props: Props) => {
     }
 
     function  getNodeBitweenYC(edgeId: string){
+
            const edge_info = edgesNodes()[edgeId]
            //console.log("edgeinfo:", edge_info.outNodeId," => ", edge_info.inNodeId);
-	  
 	   const out_node = getNode(edge_info.outNodeId);
 	   const in_node  = getNode(edge_info.inNodeId);
+	   //console.dir(out_node.id);
+	   //console.dir(in_node.id);
 	   const out_el = document.querySelector("#" + edge_info.outNodeId);
 	   const in_el  = document.querySelector("#" + edge_info.inNodeId);
+           //console.log("in_el", in_el);
+           //console.log("out_el", out_el);
 	  
-	   if (out_node.position.y < in_node.position.y ) {
-                let top =out_node.position.y + out_el.offsetHeight
-                let bottom =in_node.position.y 
-                let yc = top + (bottom - top)/2
-                //console.log("yc", yc);
-                return yc
-	   } else {
-                let top =in_node.position.y + in_el.offsetHeight
-                let bottom =out_node.position.y 
-                let yc = top + (bottom - top)/2
-                //console.log("yc", yc);
-                return yc
+	   //console.log(out_node.position)
+	   //console.log(in_node.position)
+           let top =out_node.position.y + out_el.offsetHeight
+           let bottom =in_node.position.y 
+           let yc = top + (bottom - top)/2
 
-	   }
+           return yc
     }
 
     // NODE HANDLERS
@@ -246,7 +243,12 @@ const FlowChart: Component<Props> = (props: Props) => {
             });
             return next;
         });
-
+/*
+        getNodeBitween((edgeId: string) =>{
+             const info = edgesNodes()[edgeId]
+             return 10
+	})
+*/
         setEdgesPositions((prev: EdgesPositions) => {
             const next = { ...prev };
             nodesData[values.nodeIndex].edgesIn.map((edgeId: string) => {

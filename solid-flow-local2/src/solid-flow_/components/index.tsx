@@ -1,5 +1,4 @@
 import { type Component, createEffect, createSignal } from "solid-js";
-import { mergeProps } from "solid-js";
 import { createStore, produce } from "solid-js/store";
 import EdgesBoard from "./EdgesBoard";
 import NodesBoard from "./NodesBoard";
@@ -154,17 +153,6 @@ const FlowChart: Component<Props> = (props: Props) => {
     const [clickedDelta, setClickedDelta] = createSignal<Position>({ x: 0, y: 0 });
     const [newEdge, setNewEdge] = createSignal<{ position: Vector; sourceNode: number; sourceOutput: number } | null>(null);
 
-
-
-
-
-
-    const [point_margin_size_, setPointMargin_size_] = createSignal(12);  //point_margin_size DEFAULT
-
-    const merged = mergeProps({ point_margin_size: point_margin_size_}, props);
-    let point_margin_size = merged.point_margin_size;
-
-
     createEffect(() => {
         const nextNodesLength = props.nodes.length;
         const prevNodesLength = nodesData.length;
@@ -180,41 +168,6 @@ const FlowChart: Component<Props> = (props: Props) => {
             setNodesOffsets(initNodesOffsets);
         }
     });
-
-    function  getNode(nodeId: string){
-	   for (const node of props.nodes) {
-               if ( node.id == nodeId ) {
-                   return node;
-	       }
-	   }
-	   return null
-
-    }
-
-    function  getNodeBitweenYC(edgeId: string){
-           const edge_info = edgesNodes()[edgeId]
-           //console.log("edgeinfo:", edge_info.outNodeId," => ", edge_info.inNodeId);
-	  
-	   const out_node = getNode(edge_info.outNodeId);
-	   const in_node  = getNode(edge_info.inNodeId);
-	   const out_el = document.querySelector("#" + edge_info.outNodeId);
-	   const in_el  = document.querySelector("#" + edge_info.inNodeId);
-	  
-	   if (out_node.position.y < in_node.position.y ) {
-                let top =out_node.position.y + out_el.offsetHeight
-                let bottom =in_node.position.y 
-                let yc = top + (bottom - top)/2
-                //console.log("yc", yc);
-                return yc
-	   } else {
-                let top =in_node.position.y + in_el.offsetHeight
-                let bottom =out_node.position.y 
-                let yc = top + (bottom - top)/2
-                //console.log("yc", yc);
-                return yc
-
-	   }
-    }
 
     // NODE HANDLERS
     function handleOnNodeMount(values: {
@@ -255,7 +208,6 @@ const FlowChart: Component<Props> = (props: Props) => {
                     y0: prev[edgeId]?.y0 || 0,
                     x1: nodesPositions()[values.nodeIndex].x + values.inputs[edgesNodes()[edgeId].inputIndex].offset.x,
                     y1: nodesPositions()[values.nodeIndex].y + values.inputs[edgesNodes()[edgeId].inputIndex].offset.y,
-		    yc: getNodeBitweenYC(edgeId), /*GUSA*/
                 };
             });
             nodesData[values.nodeIndex].edgesOut.map((edgeId: string) => {
@@ -264,7 +216,6 @@ const FlowChart: Component<Props> = (props: Props) => {
                     y0: nodesPositions()[values.nodeIndex].y + values.outputs[edgesNodes()[edgeId].outputIndex].offset.y,
                     x1: prev[edgeId]?.x1 || 0,
                     y1: prev[edgeId]?.y1 || 0,
-		    yc: getNodeBitweenYC(edgeId), /*GUSA*/
                 };
             });
             return next;
@@ -292,7 +243,6 @@ const FlowChart: Component<Props> = (props: Props) => {
                         y0: prev[edgeId]?.y0 || 0,
                         x1: x + nodesOffsets[nodeIndex].inputs[edgesNodes()[edgeId].inputIndex].offset.x - clickedDelta().x,
                         y1: y + nodesOffsets[nodeIndex].inputs[edgesNodes()[edgeId].inputIndex].offset.y - clickedDelta().y,
-		        yc: getNodeBitweenYC(edgeId), /*GUSA*/
                     };
             });
             nodesData[nodeIndex].edgesOut.map((edgeId: string) => {
@@ -302,7 +252,6 @@ const FlowChart: Component<Props> = (props: Props) => {
                         y0: y + nodesOffsets[nodeIndex].outputs[edgesNodes()[edgeId].outputIndex].offset.y - clickedDelta().y,
                         x1: prev[edgeId]?.x1 || 0,
                         y1: prev[edgeId]?.y1 || 0,
-		        yc: getNodeBitweenYC(edgeId), /*GUSA*/
                     };
             });
             return next;
@@ -460,7 +409,6 @@ const FlowChart: Component<Props> = (props: Props) => {
                         onInputMouseUp={handleOnInputMouseUp}
                         onMouseUp={handleOnMouseUp}
                         onMouseMove={handleOnMouseMove}
-			point_margin_size={merged.point_margin_size}
                     />
                     <EdgesBoard
                         newEdge={newEdge()}
