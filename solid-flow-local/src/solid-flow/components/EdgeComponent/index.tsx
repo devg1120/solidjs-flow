@@ -17,8 +17,13 @@ const EdgeComponent: Component<Props> = (props: Props) => {
     });
 
     console.log("yc:", props.position.yc);
-    console.log("YC:", props.edgeId, props.position.y0 + (props.position.y1 - props.position.y0)/2)
-
+    /*
+    if  (props.edgeId == "edge_node-1:0_node-3:0") {
+        console.log("YC:", props.position.y0 )
+        console.log("YC:", props.position.y1 )
+        console.log("YC:", props.edgeId, props.position.y0 + (props.position.y1 - props.position.y0)/2)
+    }
+   */
     createEffect(() => {
         const middleX = props.position.x0 + (props.position.x1 - props.position.x0) / 2;
         const middleY = props.position.y0 + (props.position.y1 - props.position.y0) / 2;
@@ -60,7 +65,9 @@ const EdgeComponent: Component<Props> = (props: Props) => {
     //let path_type = "path_bezierCurve" ;
     let path_type = "path_rightAngle" ;
     let point_size = 12;
+
 /*
+    // ORIGNAL
     const path_data = createMemo(() => {
 
           if (path_type == "path_rightAngle")  {
@@ -80,18 +87,27 @@ const EdgeComponent: Component<Props> = (props: Props) => {
           } 
       } 
     ) ;
-*/    
+*/  
+
+
+    // CASE 01
     const path_data = createMemo(() => {
-        //if (props.position.x0 + point_size/2 < props.position.x1 - point_size/2 ) {
         if (props.position.x0 + 40 < props.position.x1 - 40 ) {
-             /*
-	      *    [node1]--+
-	      *             |
-	      *             |
-	      *             |
-	      *             +--[node2]
-	      */
+             
+//	          [node1]--+
+//	                   |
+//	                   |
+//	                   |
+//	                   +--[node2]
+	      
                 if (path_type == "path_rightAngle")  {
+                 return `
+                    M ${props.position.x0} ${props.position.y0} 
+                    H ${props.position.x0 + (props.position.x1 - props.position.x0)/2}
+                    V ${props.position.y1}
+                    H ${props.position.x1}
+                  `
+		} else if (path_type == "path_rightAngle2")  {
                  return `
                     M ${props.position.x0} ${props.position.y0} 
                     H ${props.position.x0 + (props.position.x1 - props.position.x0)/2}
@@ -107,19 +123,30 @@ const EdgeComponent: Component<Props> = (props: Props) => {
                   `
                 } 
         } else {
-             /*
-	      *          [node1]--+
-	      *                   |
-	      *     +-------------+
-	      *     |
-	      *     +--[node2]
-	      */
+             
+//	               [node1]--+
+//	                        |
+//	          +-------------+
+//	          |
+//	          +--[node2]
+	     
                if (path_type == "path_rightAngle")  {
 
                 return `
                    M ${props.position.x0} ${props.position.y0} 
                    H ${props.position.x0 + 40}
                    V ${props.position.y0 + (props.position.y1 - props.position.y0)/2}
+
+                   H ${props.position.x1 - 40}
+                   V ${props.position.y1}
+                   H ${props.position.x1}
+                 `
+	       } else if (path_type == "path_rightAngle2")  {
+
+                return `
+                   M ${props.position.x0} ${props.position.y0} 
+                   H ${props.position.x0 + 40}
+                   V ${props.position.yc }
 
                    H ${props.position.x1 - 40}
                    V ${props.position.y1}
@@ -137,7 +164,7 @@ const EdgeComponent: Component<Props> = (props: Props) => {
         }
       } 
     ) ;
-      
+     
     return (
         <>
             <path

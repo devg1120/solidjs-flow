@@ -190,40 +190,27 @@ const FlowChart: Component<Props> = (props: Props) => {
 	   return null
 
     }
+
     function  getNodeBitweenYC(edgeId: string){
-           const info = edgesNodes()[edgeId]
-           console.log("edgeinfo:", info.inNodeId," => ", info.outNodeId);
-	   const in_node = getNode(info.inNodeId);
-	   const out_node = getNode(info.outNodeId);
-	   //console.dir(in_node);
-	   //console.dir(out_node);
-	   const in_el = document.querySelector("#" + info.inNodeId);
-	   const out_el = document.querySelector("#" + info.outNodeId);
+
+           const edge_info = edgesNodes()[edgeId]
+           //console.log("edgeinfo:", edge_info.outNodeId," => ", edge_info.inNodeId);
+	   const out_node = getNode(edge_info.outNodeId);
+	   const in_node  = getNode(edge_info.inNodeId);
+	   //console.dir(out_node.id);
+	   //console.dir(in_node.id);
+	   const out_el = document.querySelector("#" + edge_info.outNodeId);
+	   const in_el  = document.querySelector("#" + edge_info.inNodeId);
            //console.log("in_el", in_el);
            //console.log("out_el", out_el);
-	   console.log(in_node.position)
+	  
+	   //console.log(out_node.position)
+	   //console.log(in_node.position)
+           let top =out_node.position.y + out_el.offsetHeight
+           let bottom =in_node.position.y 
+           let yc = top + (bottom - top)/2
 
-	   console.log(in_el.offsetHeight)  //offset paddingとborderを含む
-	   console.log(in_el.offsetWidth)
-	   //console.log(in_el.offsetTop)
-	   //console.log(in_el.offsetLeft)
-
-
-           const rect = in_el.getBoundingClientRect();
-           //console.log(rect.top,  rect.left,   rect.right,  rect.bottom);
-           console.log(rect.left + "   " + rect.top);
-           console.log(rect.x + "   " + rect.y);
-           //console.log(rect.width,   rect.height);
-
-
-// ページの左上を基準とした絶対座標
-/*
-const absoluteLeft = rect.left + window.scrollX
-const absoluteTop = rect.top + window.scrollY;
-
-console.log(`X: ${absoluteLeft}px, Y: ${absoluteTop}px`);
-*/
-           return 14
+           return yc
     }
 
     // NODE HANDLERS
@@ -307,6 +294,7 @@ console.log(`X: ${absoluteLeft}px, Y: ${absoluteTop}px`);
                         y0: prev[edgeId]?.y0 || 0,
                         x1: x + nodesOffsets[nodeIndex].inputs[edgesNodes()[edgeId].inputIndex].offset.x - clickedDelta().x,
                         y1: y + nodesOffsets[nodeIndex].inputs[edgesNodes()[edgeId].inputIndex].offset.y - clickedDelta().y,
+		        yc: getNodeBitweenYC(edgeId), /*GUSA*/
                     };
             });
             nodesData[nodeIndex].edgesOut.map((edgeId: string) => {
@@ -316,6 +304,7 @@ console.log(`X: ${absoluteLeft}px, Y: ${absoluteTop}px`);
                         y0: y + nodesOffsets[nodeIndex].outputs[edgesNodes()[edgeId].outputIndex].offset.y - clickedDelta().y,
                         x1: prev[edgeId]?.x1 || 0,
                         y1: prev[edgeId]?.y1 || 0,
+		        yc: getNodeBitweenYC(edgeId), /*GUSA*/
                     };
             });
             return next;
