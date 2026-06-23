@@ -41,7 +41,7 @@ function App() {
             <a name="Simple" style={{"scroll-margin-top": "100px",}} ></a>
             <h2>Simple</h2>
               <Simple />
-{/*
+
             <a name="Increment" style={{"scroll-margin-top": "100px",}} ></a>
             <h2>Increment</h2>
               <Increment/>
@@ -53,7 +53,7 @@ function App() {
             <a name="Timer" style={{"scroll-margin-top": "100px",}} ></a>
             <h2>Timer</h2>
               <Timer/>
-*/}
+
         </div>
     </>
   )
